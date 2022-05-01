@@ -2,7 +2,7 @@
 
 Link your docs directly to portions of code samples.
 
-![Screenshot](screenshot.png)
+![Screenshot](https://raw.githubusercontent.com/sakamies/code-anntotator/main/screenshot.png)
 
 TODO:
 
