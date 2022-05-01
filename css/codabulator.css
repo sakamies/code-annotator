@@ -17,10 +17,21 @@ body {
   font-family: sans-serif;
   /* System Fonts as used by GitHub */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 640px;
+  padding: var(--half);
+  margin: auto;
+
   background: #75715e;
   background: #272822;
   color: #272822;
   background: white;
+}
+h1 {
+  margin: var(--line) 0;
 }
 ul, ol, p, figure {
   margin: 0 0 var(--line) 0;
@@ -33,13 +44,16 @@ a {
 pre, code{
 }
 
-.layout {
-  display: grid;
-  align-content: center;
-  justify-content: center;
+.layout > * {
+  flex: 0 0 auto;
+}
+.layout > :first-child {
+  margin-block-start: auto;
+}
+.layout > :last-child {
+  margin-block-end: auto;
 }
 .example-figure {
-  max-width: 500px;
   box-shadow:
     inset 0 0 0 1px rgba(0 0 0 / .2),
     0 4px 8px -4px rgba(0 0 0 / .5)
