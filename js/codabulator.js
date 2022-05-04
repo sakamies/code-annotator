@@ -1,4 +1,5 @@
 const app = {
+  appElement: document.querySelector('.codenotes'),
   codeElement: document.querySelector('.code'),
   codeMarks: [],
   codeString: '', //Raw code string
@@ -9,6 +10,7 @@ async function init () {
   await renderCode()
   await renderMarkdown()
   renderNotes()
+  wireEvents()
 }
 init()
 
@@ -50,15 +52,43 @@ function renderNotes () {
     const markedCodeString = insertMarkers(app.codeString, pos, id)
 
     link.id = id + '-note'
+    link.setAttribute('data-range', pos.join('-'))
     link.classList.add('note')
     app.codeElement.insertAdjacentHTML('beforeend', `<code id="${id}" class="code-marked">${markedCodeString}</code>`)
   })
 }
 
+function wireEvents () {
+  app.appElement.addEventListener('pointerover', e => {
+    hilite(e.target, true)
+  })
+  app.appElement.addEventListener('focusin', e => {
+    hilite(e.target, true)
+  })
+}
 
 
 
 //Utils
+
+function hilite (el, state) {
+  app.appElement.querySelectorAll('.mark, .note').forEach(el => {
+    el.classList.remove('hilite')
+  })
+
+  const isMark = el.classList.contains('mark')
+  const isNote = el.classList.contains('note')
+  const range = el.getAttribute('data-range')
+  // console.log({isMark, isNote, range})
+
+  if ((isMark || isNote) && range) {
+    const hilitables = document.querySelectorAll(`[data-range="${range}"]`)
+    console.log(hilitables)
+    hilitables.forEach(el => {
+      el.classList.toggle('hilite', state)
+    })
+  }
+}
 
 function isPosLink (link) {
   //TODO: check that url is just hash + number + comma + number, regex?
@@ -73,7 +103,7 @@ function getPos (id) {
 function insertMarkers (html, pos, id) {
   let acc = 0
   const startMark = '€start€'
-  const startTag = `<a href="#${id}-note" class="mark">`
+  const startTag = `<a href="#${id}-note" data-range="${pos.join('-')}" class="mark">`
   const startLength = startMark.length
   const endMark = '€end€'
   const endTag = '</a>'
