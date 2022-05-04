@@ -6,8 +6,6 @@ Link your docs directly to portions of code samples.
 
 TODO:
 
-- Styling so hover, focus & click all highlight both mark & note elements
-
 - Decouple styling from functionality as much as possible. Though custom elements would help with this because styles wouldn't leak.
   - Custom element? So this dingus would be self contained and embeddable.
   - At least support for easily adding multiple instances on the same page.
